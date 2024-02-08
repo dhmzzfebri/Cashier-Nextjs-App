@@ -1,8 +1,45 @@
 'use client';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
+import { Button, Form, Alert } from 'react-bootstrap';
+import { useState } from 'react';
 export default function Login() {
+  const [formUser, setFormUser] = useState({
+    username: '',
+    password: '',
+  });
+
+  const [Pesan, setPesan] = useState('');
+  const [Tampil, setTampil] = useState('');
+
+  const [warna, setWarna] = useState('');
+
+  //handlen login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    //masukan data ke serve
+    const loginAPI = await fetch('/api/signin', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(formUser),
+    });
+
+    const result = await loginAPI.json();
+
+    //cek status
+    console.log(loginAPI.json);
+    if (result.status == 'success') {
+      setWarna('success');
+    } else if (result.status == 'fail') {
+      setWarna('danger');
+    }
+
+    setPesan(result.message);
+    setTampil(true);
+    console.log(result);
+  };
+
   return (
     <>
       <div className="h-100 container-fluid">
@@ -12,24 +49,27 @@ export default function Login() {
               <div className="card">
                 <div className="p-4 m-1 card-body">
                   <h5 className="mb-3 d-flex justify-content-center">Login</h5>
-                  <Form>
+                  {/* hanya akan tampil, jika nilai dari variable 'tampil' adalah true */}
+                  {Tampil && (
+                    <div style={{ width: '300px' }}>
+                      <Alert className="mb-0" variant={warna}>
+                        {Pesan}
+                      </Alert>
+                    </div>
+                  )}
+                  <Form >
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control type="text"  placeholder="Username" />
+                      <Form.Control type="text" placeholder="Username" value={formUser.username} onChange={(e) => setFormUser({...formUser, username: e.target.value})} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Control type="password" placeholder="Password" />
+                      <Form.Control type="password" placeholder="Password" value={formUser.password} onChange={(e) => setFormUser({...formUser, password: e.target.value})}/>
                     </Form.Group>
-                    <Form.Select className="mb-3" aria-label="Default select example" >
-                      <option>Pilih</option>
-                      <option value="admin">Admin</option>
-                      <option value="petugas">Petugas</option>
-                    </Form.Select>
                     <small class="pb-4 d-block">
                       Do not have an account?
                       <a href="/register">Sign Up</a>
                     </small>
-                    <Button variant="primary" type="submit" >
+                    <Button variant="primary" type="submit" onClick={handleLogin}>
                       Login
                     </Button>
                   </Form>

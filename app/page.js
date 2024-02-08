@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [show, setShow] = useState(false);
-  
+
   const NavItem = (props) => {
     const { title, link, external, target, icon, image, badgeText, badgeBg = 'secondary', badgeColor = 'primary' } = props;
     const classNames = badgeText ? 'd-flex justify-content-start align-items-center justify-content-between' : '';
@@ -47,7 +47,7 @@ export default function Home() {
             <span className="navbar-toggler-icon" />
           </Navbar.Toggle>
         </Navbar>
-        <CSSTransition timeout={300} in="" classNames="sidebar-transition">
+        {/* <CSSTransition timeout={300} in="" classNames="sidebar-transition"> */}
             <div className="sidebar-inner px-4 pt-3">
               <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                 <div className="d-flex align-items-center">
@@ -74,7 +74,7 @@ export default function Home() {
                 <NavItem title="Settings" icon={faCog} link=""/>
               </Nav>
             </div>
-        </CSSTransition>
+        {/* </CSSTransition> */}
       </Container>
     </>
   );
