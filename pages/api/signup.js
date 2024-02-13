@@ -27,10 +27,10 @@ export default async function POST(req, res) {
     }
 
     const register = await userService.store({
-        username: req.body.username,
-        password: hash,
-        role: req.body.role,
-      });
+      username: req.body.username,
+      password: hash,
+      role: req.body.role,
+    });
 
     // http status code
     // 200 ok bisa di giunkan saat mengambil Data
@@ -39,10 +39,9 @@ export default async function POST(req, res) {
 
     return res.status(201).json({
       status: 'success',
-      message: 'berhasil mendaftar user',
+      message: 'berhasil mendaftar user ,silahkan login ',
       result: register,
     });
-
   } catch (error) {
     console.log(error);
     return res.status(500).json({

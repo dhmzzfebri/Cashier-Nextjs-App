@@ -3,7 +3,7 @@ import {Sequelize}from "sequelize"
 // Konfigurasi database
 const sequelize = new Sequelize(
     // Nama database
-    "casheir",
+    "kasir-baru",
     //user database
     "root",
     //password database

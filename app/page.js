@@ -1,81 +1,33 @@
 'use client';
-import React, { useState } from "react";
-import { Container, Nav, Badge, Image, Button, Navbar } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartPie, faCog, faHandHoldingUsd, faSignOutAlt, faTimes, faInbox } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Container, Nav, NavDropdown, Button, Navbar, Form } from 'react-bootstrap';
+import Products from './products/page';
 export default function Home() {
-  const [show, setShow] = useState(false);
-
-  const NavItem = (props) => {
-    const { title, link, external, target, icon, image, badgeText, badgeBg = 'secondary', badgeColor = 'primary' } = props;
-    const classNames = badgeText ? 'd-flex justify-content-start align-items-center justify-content-between' : '';
-    const navItemClassName = link === pathname ? 'active' : '';
-    const linkProps = external ? { href: link } : { as: Link, to: link };
-    return (
-      <Nav.Item className={navItemClassName} onClick={() => setShow(false)}>
-        <Nav.Link {...linkProps} target={target} className={classNames}>
-          <span>
-            {icon ? (
-              <span className="sidebar-icon">
-                <FontAwesomeIcon icon={icon} />{' '}
-              </span>
-            ) : null}
-            {image ? <Image src={image} width={20} height={20} className="sidebar-icon svg-icon" /> : null}
-
-            <span className="sidebar-text">{title}</span>
-          </span>
-          {badgeText ? (
-            <Badge pill bg={badgeBg} text={badgeColor} className="badge-md notification-count ms-2">
-              {badgeText}
-            </Badge>
-          ) : null}
-        </Nav.Link>
-      </Nav.Item>
-    );
-  };
-
   return (
     <>
-      <Container>
-        <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
-          <Navbar.Brand className="me-lg-5" as={Link} >
-            <Image src="" className="navbar-brand-light" />
-          </Navbar.Brand>
-          <Navbar.Toggle as={Button} aria-controls="main-navbar">
-            <span className="navbar-toggler-icon" />
-          </Navbar.Toggle>
-        </Navbar>
-        {/* <CSSTransition timeout={300} in="" classNames="sidebar-transition"> */}
-            <div className="sidebar-inner px-4 pt-3">
-              <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
-                <div className="d-flex align-items-center">
-                  <div className="user-avatar lg-avatar me-4">
-                    <Image src="" className="card-img-top rounded-circle border-white" />
-                  </div>
-                  <div className="d-block">
-                    <h6>Hi, Jane</h6>
-                    <Button as={Link} variant="secondary" size="xs" to="" className="text-dark">
-                      <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Sign Out
-                    </Button>
-                  </div>
-                </div>
-                <Nav.Link className="collapse-close d-md-none" onClick="">
-                  <FontAwesomeIcon icon={faTimes} />
-                </Nav.Link>
-              </div>
-              <Nav className="flex-column pt-3 pt-md-0">
-                <NavItem title="Volt React" link="" image="" />
-
-                <NavItem title="Overview" link="" icon={faChartPie} />
-                <NavItem external title="Messages" link="https://demo.themesberg.com/volt-pro-react/#/messages" target="_blank" badgeText="Pro" icon={faInbox} />
-                <NavItem title="Transactions" icon={faHandHoldingUsd} link="" />
-                <NavItem title="Settings" icon={faCog} link=""/>
-              </Nav>
-            </div>
-        {/* </CSSTransition> */}
-      </Container>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container fluid>
+          <Navbar.Brand href="#">Cashier</Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+              <Nav.Link href="#action1">Home</Nav.Link>
+              <Nav.Link href="#action2">Link</Nav.Link>
+              <NavDropdown title="Link" id="navbarScrollingDropdown">
+                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Products/>
     </>
   );
 }
