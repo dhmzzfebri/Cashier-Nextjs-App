@@ -31,6 +31,8 @@ export default function Login() {
     console.log(loginAPI.json);
     if (result.status == 'success') {
       setWarna('success');
+      // Jika login berhasil, arahkan pengguna ke halaman home
+      window.location.href = result.dashboardURL;
     } else if (result.status == 'fail') {
       setWarna('danger');
     }
@@ -57,13 +59,13 @@ export default function Login() {
                       </Alert>
                     </div>
                   )}
-                  <Form >
+                  <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control type="text" placeholder="Username" value={formUser.username} onChange={(e) => setFormUser({...formUser, username: e.target.value})} />
+                      <Form.Control type="text" placeholder="Username" value={formUser.username} onChange={(e) => setFormUser({ ...formUser, username: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Control type="password" placeholder="Password" value={formUser.password} onChange={(e) => setFormUser({...formUser, password: e.target.value})}/>
+                      <Form.Control type="password" placeholder="Password" value={formUser.password} onChange={(e) => setFormUser({ ...formUser, password: e.target.value })} />
                     </Form.Group>
                     <small class="pb-4 d-block">
                       Do not have an account?

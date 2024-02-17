@@ -38,7 +38,7 @@ export default async function POST(req, res) {
     return res.status(200).json({
       message: 'berhasil login',
       status: 'success',
-      location:'/',
+      dashboardURL: '/'
     });
 
   } catch (err) {

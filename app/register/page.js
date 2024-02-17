@@ -1,5 +1,5 @@
 'use client';
-import { Container, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     //masukan data ke serve
-    const registerAPI = await fetch('/api/signup', {
+    const registerAPI = await fetch('/api/register', {
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,6 +1,6 @@
 import sequelize from '@/config/databases';
 import ProductService from '@/service/ProductService';
-import Product from "@/model/products";
+import Product from "@/model/product";
 
 export default async function handler(req, res) {
   try {
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     if(req.method === "POST") {
         const addProduct = await productService.store({
             name:req.body.name,
-            quentity:req.body.quentity,
+            quantity:req.body.quantity, // Ubah menjadi quantity sesuai nama kolom di database
             description:req.body.description,
             price : req.body.price,
 
@@ -19,14 +19,14 @@ export default async function handler(req, res) {
             message:"sukses menambah produk",
             data:addProduct,
         });
-    }else if(req.method=== "GET"){
-        return res.status(200).json({
-            message:"ini adalah method",
-        });
+    } else if(req.method=== "GET") {
+        const products = await productService.getAll(); // Mengambil semua produk dari database
+        console.log(products);
+        return res.status(200).json(products); // Mengirimkan data produk sebagai respons
     }
 
   } catch (err) {
-    // console.log(err);
-    return res.json({message:"internet eror"})
+    console.error('Error:', err);
+    return res.json({ message: "internet error" });
   }
 }

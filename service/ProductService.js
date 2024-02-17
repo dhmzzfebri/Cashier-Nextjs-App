@@ -26,7 +26,21 @@ class ProductService {
         // Jika terdapat error, kembalikan nilai error
         return error;
       }
+
     }
+    async getAll(){
+      try{
+        await this.sequelize.authenticate();
+        // await this.sequelize.sync();
+        const result = await this.product_model.findAll()
+        return result
+
+        
+      }catch(error){
+        return error;
+      }
+    };
   }
+
   
   export default ProductService;
