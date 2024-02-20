@@ -32,8 +32,14 @@ export default function Register() {
     console.log(registerAPI.json);
     if (result.status == 'success') {
       setWarna('success');
+      window.location.href = result.URL;
     } else if (result.status == 'fail') {
       setWarna('danger');
+      setFormUser({
+        username: '',
+        password: '',
+        role: '',
+      });
     }
 
     //update data pesan

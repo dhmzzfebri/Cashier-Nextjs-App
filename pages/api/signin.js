@@ -1,6 +1,6 @@
 import sequelize from '@/config/databases';
 import UserService from '@/service/UserService';
-import User from "@/model/user";
+import User from '@/model/user';
 import bcrypt from 'bcrypt';
 
 export default async function POST(req, res) {
@@ -15,11 +15,11 @@ export default async function POST(req, res) {
     console.log(`username:${username}`);
     console.log(result);
     // Cek apabila user belum terdatar, maka tidak boleh login
-    if(result.length == 0) {
-        return res.status(400).json({
-            message: "User belum terdaftar. Silahkan register dulu",
-            status: "fail",
-        })
+    if (result.length == 0) {
+      return res.status(400).json({
+        message: 'User belum terdaftar. Silahkan register dulu',
+        status: 'fail',
+      });
     }
 
     //ambil password
@@ -38,13 +38,13 @@ export default async function POST(req, res) {
     return res.status(200).json({
       message: 'berhasil login',
       status: 'success',
-      dashboardURL: '/'
+      token: 'string',
+      dashboardURL: '/',
     });
-
   } catch (err) {
     return res.status(500).json({
-        status: "fail",
-        message: `Terdapat error ${err}`
+      status: 'fail',
+      message: `Terdapat error ${err}`,
     });
   }
 }

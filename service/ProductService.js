@@ -28,6 +28,25 @@ class ProductService {
       }
 
     }
+    async delete(id) {
+      try {
+        // Konek database
+        await this.sequelize.authenticate();
+  
+        // Migrate up
+        await this.sequelize.sync();
+  
+        // Menghapus data table
+        const result = await this.product_model.delete(id)
+  
+        // Kembalikan hasil data
+        return result;
+      } catch (error) {
+        // Jika terdapat error, kembalikan nilai error
+        return error;
+      }
+
+    }
     async getAll(){
       try{
         await this.sequelize.authenticate();

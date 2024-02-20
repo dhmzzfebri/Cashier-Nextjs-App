@@ -2,13 +2,14 @@
 import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function Sidebar() {
   const router = usePathname();
 
   const handleLogout = () => {
     // Hapus token atau informasi otentikasi dari penyimpanan lokal
-    localStorage.removeItem('token');
+    Cookies.remove('authToken');
     // Arahkan pengguna kembali ke halaman login
     window.location.href = '/login';
   };

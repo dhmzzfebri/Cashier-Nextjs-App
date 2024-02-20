@@ -1,15 +1,19 @@
 'use client';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+
+
 export default function Login() {
   const [formUser, setFormUser] = useState({
     username: '',
     password: '',
   });
 
+  const router = useRouter();
   const [Pesan, setPesan] = useState('');
   const [Tampil, setTampil] = useState('');
-
   const [warna, setWarna] = useState('');
 
   //handlen login
@@ -28,13 +32,21 @@ export default function Login() {
     const result = await loginAPI.json();
 
     //cek status
-    console.log(loginAPI.json);
+
     if (result.status == 'success') {
+      console.log(result);
       setWarna('success');
+      // Simpan token ke dalam cookie
+      Cookies.set('authToken', result.token);
       // Jika login berhasil, arahkan pengguna ke halaman home
-      window.location.href = result.dashboardURL;
+      router.push('/products');
     } else if (result.status == 'fail') {
       setWarna('danger');
+      setFormUser({
+        username:'',
+        password:'',
+      })
+      
     }
 
     setPesan(result.message);

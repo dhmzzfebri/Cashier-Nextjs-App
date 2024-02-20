@@ -33,7 +33,8 @@ export default async function POST(req,res){
         return res.status(201).json({
             status: "success",
             message: "BERHASIL mendaftarkan user baru",
-            result: register
+            result: register,
+            URL: '/login'
         })
 
     } catch(error) {
